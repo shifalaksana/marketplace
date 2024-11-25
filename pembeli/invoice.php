@@ -82,7 +82,7 @@ if (isset($_GET['id_order'])) {
 
 <body>
   <!-- HEADER -->
-  <header>
+  <header class="no-print">
     <!-- TOP HEADER -->
     <div id="top-header">
       <div class="container">
@@ -182,12 +182,13 @@ if (isset($_GET['id_order'])) {
                     <div class="row g-0">
                       <div class="col-lg-8">
                         <div class="p-5">
+                          <img src="./img/logo hitam sp full.png"
+                            alt="Logo Starpowers berwarna putih dengan tulisan 'Name White'">
                           <div class="d-flex justify-content-between align-items-center mb-5">
                             <h1 class="fw-bold mb-0">Invoice</h1>
                           </div>
                           <h3 class="">No Pesanan: <?php echo $id_order ?> </h3>
                           <hr class="my-4">
-
 
                           <div class="d-flex flex-column">
                             <div>
@@ -238,8 +239,8 @@ if (isset($_GET['id_order'])) {
                           </div>
                         </div>
                       </div>
+                      <button onclick="window.print()" class="btn btn-primary no-print">Print</button>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -266,3 +267,11 @@ if (isset($_GET['id_order'])) {
 
 </html>
 <?php } ?>
+
+<style>
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+  }
+</style>
