@@ -2,6 +2,7 @@
 <html lang="en">
 
 <!-- index28:48-->
+
 <head>
   <?php
   // include "config.php";
@@ -170,7 +171,7 @@
                               $subtotal = $initial_qty * $row['harga']; // Calculate subtotal for this product
                               $total_harga += $subtotal; // Add to total price
                             ?>
-                              <div class="row mb-4 d-flex justify-content-between align-items-center">
+                              <div class="row mb-4 d-flex justify-content-between align-items-center gap-2">
                                 <!-- Add a checkbox for product selection -->
                                 <div class="col-12">
                                   <label>
@@ -186,7 +187,7 @@
                                   <h6 class="mb-0"><?php echo $row['nama_produk'] ?></h6>
                                   <input type="hidden" name="products[<?php echo $row['id_produk']; ?>][name]" value="<?php echo $row['nama_produk']; ?>">
                                 </div>
-                                <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                <div class="col-md-2 col-lg-2 col-xl-1 d-flex">
                                   <button type="button" class="btn btn-link px-2"
                                     onclick="updateQuantity(this, 1, '<?php echo $row['id_produk']; ?>', <?php echo $row['harga']; ?>)">
                                     <i class="fas fa-plus"></i>
@@ -195,6 +196,7 @@
                                     min="1" name="products[<?php echo $row['id_produk']; ?>][quantity]"
                                     value="<?php echo $initial_qty; ?>" type="number"
                                     class="form-control form-control-sm quantity-input"
+                                    style="width: 60px;"
                                     onchange="updatePrice('<?php echo $row['id_produk']; ?>', <?php echo $row['harga']; ?>)" />
                                   <button type="button" class="btn btn-link px-2"
                                     onclick="updateQuantity(this, -1, '<?php echo $row['id_produk']; ?>', <?php echo $row['harga']; ?>)">
@@ -202,6 +204,11 @@
                                   </button>
                                 </div>
                                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                  <h6 class="text-muted">Harga Satuan</h6>
+                                  <h6 class="mb-0">Rp <?php echo number_format($row['harga'], 0, '.', ','); ?></h6>
+                                </div>
+                                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                  <h6 class="text-muted">Subtotal</h6>
                                   <h6 class="mb-0" id="price-<?php echo $row['id_produk']; ?>">Rp <?php echo number_format($subtotal, 0, '.', ','); ?></h6>
                                   <input type="hidden" name="products[<?php echo $row['id_produk']; ?>][price]" value="<?php echo $subtotal ?>">
                                 </div>
