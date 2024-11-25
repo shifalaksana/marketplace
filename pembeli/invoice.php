@@ -189,7 +189,7 @@ if (isset($_GET['id_order'])) {
                           <hr class="my-4">
 
 
-                          <!-- <div class="d-flex flex-column">
+                          <div class="d-flex flex-column">
                             <div>
                               <h5 class="text-uppercase">Pengiriman</h5>
                             </div>
@@ -203,7 +203,7 @@ if (isset($_GET['id_order'])) {
                             <h5 class="text-uppercase">Payment Method</h5>
                             <h5><?php echo $payment_method ?></h5>
                           </div>
-                          <br> -->
+                          <br>
 
                           <?php
                           do {

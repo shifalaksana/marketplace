@@ -177,29 +177,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 														foreach ($products as $id => $row) {
 															if (isset($row['selected'])) {
 														?>
-															<div class="row mb-4 d-flex justify-content-between align-items-center">
-																<div class="col-md-2 col-lg-2 col-xl-2">
-																	<img src="../upload/<?php echo $row['image']; ?>" style="height: 100px;" alt="<?php echo $row['name']; ?>">
-																	<input type="hidden" name="products[<?php echo $id; ?>][image]" value="<?php echo $row['image']; ?>">
+																<div class="row mb-4 d-flex justify-content-between align-items-center">
+																	<div class="col-md-2 col-lg-2 col-xl-2">
+																		<img src="../upload/<?php echo $row['image']; ?>" style="height: 100px;" alt="<?php echo $row['name']; ?>">
+																		<input type="hidden" name="products[<?php echo $id; ?>][image]" value="<?php echo $row['image']; ?>">
+																	</div>
+																	<div class="col-md-3 col-lg-3 col-xl-3">
+																		<h6 class="text-muted">Product</h6>
+																		<h6 class="mb-0"><?php echo $row['name'] ?></h6>
+																		<input type="hidden" name="products[<?php echo $id; ?>][name]" value="<?php echo $row['name']; ?>">
+																	</div>
+																	<div class="col-md-3 col-lg-3 col-xl-3">
+																		<h6 class="text-muted">Quantity</h6>
+																		<h6 class="mb-0"><?php echo $row['quantity']; ?></h6>
+																		<input type="hidden" name="products[<?php echo $id; ?>][quantity]" value="<?php echo $row['quantity']; ?>">
+																	</div>
+																	<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+																		<h6 class="mb-0">Rp <?php echo number_format($row['price'], 0, '.', ','); ?></h6>
+																		<input type="hidden" name="products[<?php echo $id; ?>][price]" value="<?php echo $row['price'] ?>">
+																	</div>
 																</div>
-																<div class="col-md-3 col-lg-3 col-xl-3">
-																	<h6 class="text-muted">Product</h6>
-																	<h6 class="mb-0"><?php echo $row['name'] ?></h6>
-																	<input type="hidden" name="products[<?php echo $id; ?>][name]" value="<?php echo $row['name']; ?>">
-																</div>
-																<div class="col-md-3 col-lg-3 col-xl-3">
-																	<h6 class="text-muted">Quantity</h6>
-																	<h6 class="mb-0"><?php echo $row['quantity']; ?></h6>
-																	<input type="hidden" name="products[<?php echo $id; ?>][quantity]" value="<?php echo $row['quantity']; ?>">
-																</div>
-																<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-																	<h6 class="mb-0">Rp <?php echo number_format($row['price'], 0, '.', ','); ?></h6>
-																	<input type="hidden" name="products[<?php echo $id; ?>][price]" value="<?php echo $row['price'] ?>">
-																</div>
-															</div>
-															<hr class="my-4">
+																<hr class="my-4">
 														<?php
-														} }
+															}
+														}
 														?>
 													</div>
 												</div>
@@ -207,17 +208,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 													<div class="p-5">
 														<hr class="my-4">
 
-														<!-- <div class="d-flex justify-content-between mb-5">
-															<h5 class="text-uppercase">Shipping Method</h5>
-															<h5><?php echo $shipping_method ?></h5>
+														<div class="d-flex justify-content-between mb-5">
+															<h5 class="text-uppercase">Pengiriman</h5>
+															<select id="shipping_method" name="shipping_method" class="form-select">
+																<option value="JNE">JNE</option>
+																<option value="J&%">J&T</option>
+																<option value="Sicepat">Sicepat</option>
+															</select>
 														</div>
 														<br>
 
 														<div class="d-flex justify-content-between mb-5">
 															<h5 class="text-uppercase">Payment Method</h5>
-															<h5><?php echo $payment_method ?></h5>
+															<select id="payment_method" name="payment_method" class="form-select">
+																<option value="QRIS">QRIS</option>
+																<option value="Bank Transfer">Bank Transfer</option>
+																<option value="Cash on Delivery">Cash on Delivery</option>
+															</select>
 														</div>
-														<br> -->
+														<br>
 
 														<div class="d-flex justify-content-between mb-5">
 															<h5 class="text-uppercase">Total price</h5>

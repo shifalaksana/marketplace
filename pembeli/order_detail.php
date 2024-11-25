@@ -215,7 +215,7 @@ if (isset($_GET['id_order'])) {
                         <div class="p-5">
                           <hr class="my-4">
 
-                          <!-- <div class="d-flex justify-content-between mb-5">
+                          <div class="d-flex justify-content-between mb-5">
                               <h5 class="text-uppercase">Shipping Method</h5>
                               <h5><?php echo $shipping_method ?></h5>
                             </div>
@@ -225,7 +225,7 @@ if (isset($_GET['id_order'])) {
                               <h5 class="text-uppercase">Payment Method</h5>
                               <h5><?php echo $payment_method ?></h5>
                             </div>
-                            <br> -->
+                            <br>
 
                           <div class="d-flex justify-content-between mb-5">
                             <h5 class="text-uppercase">Total price</h5>
