@@ -18,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_pembeli = $_SESSION['id_pembeli'];
 
     // Set values for variables
-    $shipping_method = 'JNE';
-    $payment_method = 'Bank BCA';
+    $shipping_method = $_POST['shipping_method'];
+    $payment_method = $_POST['payment_method'];
 
     // Create order
     $sql = $koneksi->prepare("INSERT INTO `order` (id_pembeli, shipping_method, payment_method, total_price) VALUES (?, ?, ?, ?)");
