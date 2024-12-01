@@ -21,6 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $shipping_method = $_POST['shipping_method'];
     $payment_method = $_POST['payment_method'];
 
+    // Set values for variables
+    $nama = $_POST['nama'];
+    $alamat = $_POST['alamat'];
+    $no_hp = $_POST['no_hp'];
+    $kode_pos = $_POST['kode_pos'];
+
     // Create order
     $sql = $koneksi->prepare("INSERT INTO `order` (id_pembeli, shipping_method, payment_method, total_price) VALUES (?, ?, ?, ?)");
     $sql->bind_param("issd", $id_pembeli, $shipping_method, $payment_method, $total_price);
@@ -39,6 +45,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $fail = true;
         echo '<div class="alert alert-error alert-dismissible fade show" role="alert">Gagal membuat order</div>';
     }
+
+    // Create order address
+    $sql = $koneksi->prepare("INSERT INTO `order_address` (id_order, id_pembeli, nama, no_hp, alamat, kode_pos) VALUES (?, ?, ?, ?, ?, ?)");
+    $sql->bind_param("iisisi",$id_order, $id_pembeli, $nama, $no_hp, $alamat, $kode_pos);
+
+    // Execute the statement
+    $sql->execute() or die($koneksi->error);
 
     foreach ($products as $id => $product) {
         // Create order detail
