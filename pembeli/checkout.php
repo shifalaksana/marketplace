@@ -11,6 +11,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	// }
 
 	// echo "Total Price: Rp $total_price";
+
+	// Koneksi ke database
+	session_start();
+	include 'configpembeli.php'; // pastikan file ini mengandung informasi koneksi ke database
+
+	// Initialize variables with empty values
+	$nama = "";
+	$no_hp = "";
+	$alamat = "";
+	$kode_pos = "";
+
+	// Ambil alamat dari database
+	$query = "SELECT * FROM `address` WHERE id_pembeli = " . $_SESSION['id_pembeli'];
+	$address_result = mysqli_query($koneksi, $query);
+
+	if (mysqli_num_rows($address_result) > 0) {
+		// Fetch the data
+		$address = mysqli_fetch_assoc($address_result);
+		$nama = htmlspecialchars($address['nama']);
+		$no_hp = htmlspecialchars($address['no_hp']);
+		$alamat = htmlspecialchars($address['alamat']);
+		$kode_pos = htmlspecialchars($address['kode_pos']);
+	}
 }
 ?>
 
@@ -24,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	<?php
 	// include "config.php";
-	session_start();
 	if (empty($_SESSION['username']) and empty($_SESSION['password'])) {
 		include "indexpembeli.php";
 	} else {
@@ -208,11 +230,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 													<div class="p-5">
 														<hr class="my-4">
 
+														<!-- Input fields for Nama, Alamat, No HP, and Kode Pos -->
+														<div class="mb-5">
+															<label for="nama" class="form-label">Nama</label>
+															<input type="text" id="nama" name="nama" class="form-control" value="<?php echo $nama; ?>" required>
+														</div>
+														<div class="mb-5">
+															<label for="alamat" class="form-label">Alamat</label>
+															<textarea id="alamat" name="alamat" class="form-control" rows="3" required><?php echo $alamat; ?></textarea>
+														</div>
+														<div class="mb-5">
+															<label for="no_hp" class="form-label">No HP</label>
+															<input type="number" id="no_hp" name="no_hp" class="form-control" value="<?php echo $no_hp; ?>" required>
+														</div>
+														<div class="mb-5">
+															<label for="kode_pos" class="form-label">Kode Pos</label>
+															<input type="number" id="kode_pos" name="kode_pos" class="form-control" value="<?php echo $kode_pos; ?>" required>
+														</div>
+														<hr class="my-4">
+
 														<div class="d-flex justify-content-between mb-5">
 															<h5 class="text-uppercase">Pengiriman</h5>
 															<select id="shipping_method" name="shipping_method" class="form-select">
 																<option value="JNE">JNE</option>
-																<option value="J&%">J&T</option>
+																<option value="J&T">J&T</option>
 																<option value="Sicepat">Sicepat</option>
 															</select>
 														</div>

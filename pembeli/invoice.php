@@ -4,12 +4,25 @@ include 'configpembeli.php'; // Include your DB connection
 if (isset($_GET['id_order'])) {
   $id_order = $_GET['id_order'];
 
-  // Fetch order details
-  $sql = $koneksi->prepare("SELECT o.id_order, o.shipping_method, o.payment_method, o.total_price, p.nama_produk, p.gambar, od.qty, od.subtotal
-                              FROM `order` o
-                              JOIN `order_detail` od ON o.id_order = od.id_order
-                              JOIN `produk` p ON od.id_produk = p.id_produk
-                              WHERE o.id_order = ?");
+  // Fetch order details with order address
+  $sql = $koneksi->prepare("SELECT 
+                            o.id_order, 
+                            o.shipping_method, 
+                            o.payment_method, 
+                            o.total_price, 
+                            p.nama_produk, 
+                            p.gambar, 
+                            od.qty, 
+                            od.subtotal,
+                            oa.nama AS recipient_name, 
+                            oa.no_hp AS recipient_phone, 
+                            oa.alamat AS recipient_address, 
+                            oa.kode_pos AS postal_code
+                          FROM `order` o
+                          JOIN `order_detail` od ON o.id_order = od.id_order
+                          JOIN `produk` p ON od.id_produk = p.id_produk
+                          JOIN `order_address` oa ON o.id_order = oa.id_order
+                          WHERE o.id_order = ?");
   $sql->bind_param("i", $id_order);
   $sql->execute();
   $result = $sql->get_result();
@@ -20,6 +33,11 @@ if (isset($_GET['id_order'])) {
     $shipping_method = $order['shipping_method'];
     $payment_method = $order['payment_method'];
     $total_price = $order['total_price'];
+
+    $recipient_name = $order['recipient_name'];
+    $recipient_phone = $order['recipient_phone'];
+    $recipient_address = $order['recipient_address'];
+    $postal_code = $order['postal_code'];
   } else {
     echo "<p>Order not found.</p>";
   }
@@ -190,6 +208,31 @@ if (isset($_GET['id_order'])) {
                           <h3 class="">No Pesanan: <?php echo $id_order ?> </h3>
                           <hr class="my-4">
 
+
+                          <div class="d-flex justify-content-between mb-5">
+                            <h5 class="text-uppercase">Nama Penerima</h5>
+                            <h5><?php echo $recipient_name; ?></h5>
+                          </div>
+                          <br>
+
+                          <div class="d-flex justify-content-between mb-5">
+                            <h5 class="text-uppercase">No HP</h5>
+                            <h5><?php echo $recipient_phone; ?></h5>
+                          </div>
+                          <br>
+
+                          <div class="d-flex justify-content-between mb-5">
+                            <h5 class="text-uppercase">Alamat</h5>
+                            <h5><?php echo $recipient_address; ?></h5>
+                          </div>
+                          <br>
+
+                          <div class="d-flex justify-content-between mb-5">
+                            <h5 class="text-uppercase">Kode Pos</h5>
+                            <h5><?php echo $postal_code; ?></h5>
+                          </div>
+                          <br>
+
                           <div class="d-flex flex-column">
                             <div>
                               <h5 class="text-uppercase">Pengiriman</h5>
@@ -273,5 +316,67 @@ if (isset($_GET['id_order'])) {
     .no-print {
       display: none !important;
     }
+
+    /* body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      page-break-inside: avoid;
+      margin-bottom: 15px;
+    }
+
+    .col-md-2,
+    .col-lg-2,
+    .col-xl-2 {
+      width: 10%;
+      text-align: center;
+    }
+
+    .col-md-3,
+    .col-lg-3,
+    .col-xl-3 {
+      width: 30%;
+      text-align: left;
+    }
+
+    .col-xl-2.offset-lg-1 {
+      width: 25%;
+      text-align: right;
+    }
+
+    h6.text-muted {
+      color: #6c757d;
+      font-size: 12px;
+    }
+
+    h6.mb-0 {
+      margin-bottom: 0;
+      font-size: 14px;
+    }
+
+    hr.my-4 {
+      border-top: 1px solid #ddd;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+
+    .row {
+      page-break-inside: avoid;
+    }
+
+    .row div h6 {
+      margin: 0;
+    } */
   }
 </style>
